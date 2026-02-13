@@ -24,20 +24,20 @@ const App = () => {
         {hellos.length > 5 && <DontIgnoreMe />}
         {layer === 2 && 
         <>
-          {[...Array(15)].map((_, i) => {
+          {[...Array(30)].map((_, i) => {
             // eslint-disable-next-line react-hooks/purity
             const left = Math.random() * 100;
             // eslint-disable-next-line react-hooks/purity
             const top = Math.random() * 100;
             // eslint-disable-next-line react-hooks/purity
-            const size = 20 + Math.random() * 40;
+            const size = 20 + Math.random() * 50;
             // eslint-disable-next-line react-hooks/purity
             const delay = Math.random() * 5;
 
             return (
               <div
                 key={i}
-                className="absolute text-pink-400 opacity-70 animate-float"
+                className="absolute text-pink-400 opacity-0 animate-float select-none"
                 style={{
                   left: `${left}%`,
                   top: `${top}%`,
