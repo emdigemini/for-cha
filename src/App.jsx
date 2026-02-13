@@ -204,6 +204,7 @@ function BeMyValentine({ setValentinesGreet }){
   }
 
   const sendMessage = () => {
+    if(!message) return toast.error("Please write a message.")
     setValentinesGreet(true);
 
     emailjs.init({
