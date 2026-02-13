@@ -2,6 +2,7 @@ import { useState } from "react"
 import { EDog, AlienDog, ECat, JumpingECat, HappyCat, ScaredDog, CryCat,
 CryingDude, CryingSobbing, CryingDog, PleaseNo, NoNo } from "./components/Gif";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 
 const App = () => {
   const [ overlay, setOverlay ] = useState(true);
@@ -9,6 +10,7 @@ const App = () => {
   const [ hiHover, setHiHover ] = useState(false);
   const [ ignoreHover, setIgnoreHover ] = useState(false);
   const [ layer, setLayer ] = useState(0);
+  const [ valentinesGreet, setValentinesGreet ] = useState(false);
 
   const audio = new Audio("/for-cha/fx/bg-music.mp3");
 
@@ -16,6 +18,7 @@ const App = () => {
     <>
       {overlay && <Overlay setOverlay={setOverlay} audio={audio} />}
       <div className="relative bg-pink-400 min-h-screen min-w-screen overflow-hidden">
+        {valentinesGreet && <HappyValentines />}
         {hiHover && <SheSaidHi />}
         {ignoreHover && <SheIgnoreMe />}
         {hellos.length > 5 && <DontIgnoreMe />}
@@ -46,7 +49,7 @@ const App = () => {
               </div>
             );
           })}
-          <BeMyValentine />
+          <BeMyValentine setValentinesGreet={setValentinesGreet}/>
         </>
         }
         {layer === 1 && <Layer2 setLayer={setLayer} />}
@@ -178,7 +181,7 @@ function SheIgnoreMe(){
   )
 }
 
-function BeMyValentine(){
+function BeMyValentine({ setValentinesGreet }){
   const [ beMy, setBeMy ] = useState("");
   const [ yes, setYes ] = useState(false);
   const [ yesOverlay, setYesOverlay ] = useState(false);
@@ -201,6 +204,8 @@ function BeMyValentine(){
   }
 
   const sendMessage = () => {
+    setValentinesGreet(true);
+
     emailjs.init({
       publicKey: "T5wd1r2CfabMwgP3p",
     });
@@ -214,7 +219,7 @@ function BeMyValentine(){
       }
     )
     .then(() => {
-      alert("Message sent successfully!");
+      toast.success("Message sent successfully!");
       setMessage("");
     })
     .catch((error) => {
@@ -242,12 +247,15 @@ function BeMyValentine(){
             <div className="px-6"></div>
             <button style={!pos ? undefined : { position: 'absolute', top: `${pos.y}px`, left: `${pos.x}px`, transition: "all 0.1s ease"}}
             className="bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-xl shadow-md hover:bg-gray-400 transition cursor-pointer
-            z-999"
+            z-99"
             onMouseEnter={() => {
               setOnHover(true);
               moveButton();
             }}
-            onClick={() => {setBeMy("no"); playAww()}}>
+            onClick={() => {
+              setBeMy("no"); 
+              playAww();
+            }}>
               No
             </button>
           </div>
@@ -278,25 +286,17 @@ function BeMyValentine(){
                 Send
               </button>
               <button className="bg-red-500 text-white font-semibold py-3 px-6 rounded-xl shadow-md hover:bg-red-600 transition cursor-pointer"
-              onClick={() => setNothing(prev => prev+1)}>
+              onClick={() => {
+                setNothing(prev => prev+1);
+                nothing > 3 && setValentinesGreet(true); 
+              }}>
                 {nothing === 0 && "Hmm... Nothing"}
                 {nothing === 1 && "Really?"}
                 {nothing === 2 && "Ehh!? Fr???"}
                 {nothing === 3 && "You sure???"}
               </button>
               {nothing > 3 &&
-              <div className="fixed inset-0 z-999 flex items-center justify-center
-                  bg-gradient-to-bottom-right from-pink-200 via-red-200 to-pink-300
-                  animate-fadeIn">
-
-                <div className="bg-white/70 backdrop-blur-md shadow-2xl rounded-3xl px-10 py-8 text-center max-w-xl mx-4">
-
-                  <h1 className="text-4xl md:text-6xl font-extrabold text-pink-600 mb-4 py-20">
-                    okay... still love you pookie😘
-                  </h1>
-                </div>
-
-              </div>
+              <HappyValentines />
               }
             </div>
           </div>
@@ -311,15 +311,11 @@ function YesOverlay({ setYes, setBeMy }){
   const playYay = () => audioYay.play();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-999 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
       <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-pink-100 animate-in fade-in zoom-in duration-300">
-        
-        {/* Header */}
         <div className="bg-pink-500 p-4 text-white text-center font-bold tracking-wide">
           TERMS & CONDITIONS 📜
         </div>
-
-        {/* Body */}
         <div className="p-6 space-y-4">
           <div className="h-32 overflow-y-auto pr-2 text-sm text-pink-900/70 leading-relaxed custom-scrollbar">
             <p className="font-bold mb-2 uppercase text-[10px] text-pink-400">Agreement 1.1: Gift Acceptance</p>
@@ -403,10 +399,6 @@ function WhyNo() {
           <img className="h-20 md:h-24 bottom-23 animate-pulse" src="/gif/sad-disappointed.gif" alt="" />
         </div>
       </div>
-
-      
-      
-
       <p className="mt-6 text-gray-600 italic text-center">
         Sayang ang pinag-aralan ko kung hindi ko mapapagana 'tong 'Yes' button sayo.😔
         <br />
@@ -415,6 +407,56 @@ function WhyNo() {
 
     </div>
   );
+}
+
+function HappyValentines(){
+  return (
+    <div className="absolute min-h-screen min-w-screen flex items-center justify-center bg-rose-50/20 p-6
+    top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 backdrop-blur-1xl z-999">
+      <div className="z-999 max-w-md w-full bg-white/70 backdrop-blur-md border border-rose-200 
+      rounded-3xl shadow-xl p-8 text-center transition-all hover:scale-[1.02]">
+        
+        <div className="mb-6 text-4xl animate-bounce">❤️</div>
+
+        <h1 className="text-2xl font-bold text-rose-600 mb-4">
+          Happy Heart Day! CHARIZZZZZZZZZZ <br />
+          <span className="text-sm font-normal text-rose-400">
+            Libre mo naman ako? Chariz HAHAHA.
+          </span>
+        </h1>
+
+        <div className="space-y-4 text-gray-700 leading-relaxed">
+          <p className="text-sm italic">
+            I'm sorry I don't have flowers or chocolates for you today. 
+            If I could code them into reality, your room would be full of them by now. 🍫🌹
+          </p>
+
+          <div className="h-1px bg-gradient-to-right from-transparent via-rose-200 to-transparent my-4" />
+
+          <p>
+            So go ahead and enjoy all the treats and attention from everyone else today. 
+            Tanggapin mo lang lahat ng chocolates from your suitors tapos penge ako HAHAHA chariz ulit. <br />
+            You're everyone's favorite for a reason.
+          </p>
+          
+          <p className="font-medium">
+            I'm just here always for you, quietly cheering for you.
+          </p>
+
+          <p className="text-lg font-semibold text-rose-500 pt-2">
+            Happy Valentine's Day! <br />
+            <span className="text-xs uppercase tracking-widest text-gray-400">
+              No "chariz/charot" this time — you really are the best. ✨
+            </span>
+          </p>
+        </div>
+
+        <div className="mt-8 text-[10px] text-rose-300 font-mono">
+          {`// status: supporting_you_always.html`}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 
