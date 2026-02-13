@@ -447,7 +447,7 @@ function HappyValentines(){
           <p className="text-lg font-semibold text-rose-500 pt-2">
             Happy Valentine's Day! <br />
             <span className="text-xs uppercase tracking-widest text-gray-400">
-              No "chariz/charot" this time — you really are the best. ✨
+              No "chariz/charot" this time <br />you really are the best. ✨
             </span>
           </p>
         </div>
