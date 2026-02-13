@@ -392,11 +392,11 @@ function WhyNo() {
 
       <div className="relative gap-12 justify-around md:justify-center items-center w-screen flex mt-6 text-6xl animate-bounce">
         <div>
-          <img className="h-20 md:h-24 bottom-23 scale-x-[-1] animate-pulse" src="/gif/sad-disappointed.gif" alt="" />
+          <img className="h-20 md:h-24 bottom-23 scale-x-[-1] animate-pulse" src="/for-cha/gif/sad-disappointed.gif" alt="" />
         </div>
         💔
         <div>
-          <img className="h-20 md:h-24 bottom-23 animate-pulse" src="/gif/sad-disappointed.gif" alt="" />
+          <img className="h-20 md:h-24 bottom-23 animate-pulse" src="/for-cha/gif/sad-disappointed.gif" alt="" />
         </div>
       </div>
       <p className="mt-6 text-gray-600 italic text-center">
