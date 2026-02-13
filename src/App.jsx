@@ -10,7 +10,7 @@ const App = () => {
   const [ ignoreHover, setIgnoreHover ] = useState(false);
   const [ layer, setLayer ] = useState(0);
 
-  const audio = new Audio("/fx/bg-music.mp3");
+  const audio = new Audio("/for-cha/fx/bg-music.mp3");
 
   return (
     <>
@@ -91,8 +91,8 @@ function Overlay({ setOverlay, audio }){
 }
 
 function Hello({ setLayer, setHiHover, setIgnoreHover, setHellos, center, x, y }){
-  const audioYay = new Audio('/fx/yayy-fx.mp3');
-  const audioAww = new Audio('/fx/aww-fx.mp3');
+  const audioYay = new Audio('/for-cha/fx/yayy-fx.mp3');
+  const audioAww = new Audio('/for-cha/fx/aww-fx.mp3');
 
   const yayFx = () => {
     audioYay.play();
@@ -185,7 +185,7 @@ function BeMyValentine(){
   const [ onHover, setOnHover ] = useState(false);
   const [ pos, setPos ] = useState({x: 100, y: "50%"});
   const [ nothing, setNothing ] = useState(0);
-  const audioAww = new Audio('/fx/aww-fx.mp3');
+  const audioAww = new Audio('/for-cha/fx/aww-fx.mp3');
   const [ message, setMessage ] = useState("");
 
   const playAww = () => audioAww.play();
@@ -307,7 +307,7 @@ function BeMyValentine(){
 }
 
 function YesOverlay({ setYes, setBeMy }){
-  const audioYay = new Audio('/fx/yayy-fx.mp3');
+  const audioYay = new Audio('/for-cha/fx/yayy-fx.mp3');
   const playYay = () => audioYay.play();
 
   return (
